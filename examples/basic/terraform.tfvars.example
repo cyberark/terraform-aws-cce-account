@@ -1,0 +1,12 @@
+# Example terraform.tfvars file
+# Copy this file to terraform.tfvars and fill in your values
+
+# Your AWS account ID (12 digits)
+account_id = "123456789012"
+
+# Display name for your account in CyberArk CCE
+account_display_name = "My Production AWS Account"
+
+# AWS region for deployment
+aws_region = "us-east-1"
+
