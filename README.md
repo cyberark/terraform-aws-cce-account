@@ -102,41 +102,6 @@ output "sca_role_arn" {
 }
 ```
 
-### Complete Example - All Services with SSO
-
-```hcl
-module "cce_onboarding" {
-  source = "path/to/terraform-aws-cce-account"
-
-  account_id           = "123456789012"
-  account_display_name = "Production AWS Account"
-
-  # Enable SIA service
-  sia = {
-    enable = true
-  }
-
-  # Enable SCA service with SSO
-  sca = {
-    enable     = true
-    sso_enable = true
-    sso_region = "us-east-1"
-  }
-}
-
-output "sia_role_arn" {
-  value = module.cce_onboarding.sia_role_arn
-}
-
-output "sca_role_arn" {
-  value = module.cce_onboarding.sca_role_arn
-}
-
-output "enabled_services" {
-  value = module.cce_onboarding.enabled_services
-}
-```
-
 ## Service Configuration
 
 ### SIA (Secure Infrastructure Access)
@@ -196,7 +161,6 @@ sca = {
 See the [examples](./examples) directory for complete, working examples:
 
 - **[basic](./examples/basic/)** - Basic SCA-only deployment
-- **[complete](./examples/complete/)** - All services enabled with SSO integration
 
 ## IAM Permissions Required
 

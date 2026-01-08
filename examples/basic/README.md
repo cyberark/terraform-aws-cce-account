@@ -85,9 +85,9 @@ terraform destroy
 
 ## Next Steps
 
-- See the [complete example](../complete/) for enabling multiple services
 - Review the [main module documentation](../../README.md) for all configuration options
 - Configure SSO integration by setting `sso_enable = true` (requires `sso_region`)
+- Enable SIA service by setting `sia = { enable = true }` in your module configuration
 
 ## Notes
 
