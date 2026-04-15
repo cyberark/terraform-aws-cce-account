@@ -1,24 +1,24 @@
 # Basic Example: SCA-Only Deployment
 
-This example demonstrates how to onboard an AWS account to CyberArk CCE with only the **SCA (Secure Cloud Access)** service enabled.
+This example demonstrates how to onboard an AWS account to CCE with only **SCA (Secure Cloud Access)** enabled.
 
 ## What This Example Creates
 
-- IAM Role for SCA service with cross-account trust
-- IAM Policy with permissions for cloud entitlements management
-- CyberArk CCE account registration
+- IAM role for SCA with cross-account trust
+- IAM policy with permissions for cloud entitlements management
+- CCE account registration
 
 ## Prerequisites
 
 1. **Terraform** >= 1.8.5
 2. **AWS credentials** configured (via AWS CLI, environment variables, or IAM role)
-3. **CyberArk CCE tenant credentials** for the idsec provider
+3. **CyberArk tenant credentials** for the idsec provider
 
 ## Usage
 
-### Step 1: Configure CyberArk CCE Provider
+### Step 1: Configure CyberArk Provider
 
-Set the following environment variables with your CyberArk CCE tenant credentials:
+Set the following environment variables with your CyberArk tenant credentials:
 
 ```bash
 export IDSEC_TENANT_URL="https://your-tenant.cyberark.cloud"
@@ -33,7 +33,7 @@ Create a `terraform.tfvars` file with your AWS account details:
 ```hcl
 account_id           = "123456789012"
 account_display_name = "My Production AWS Account"
-aws_region          = "us-east-1"
+aws_region           = "us-east-1"
 ```
 
 ### Step 3: Initialize and Apply
@@ -67,7 +67,7 @@ sca_role_arn = "arn:aws:iam::123456789012:role/CyberArkRoleSCATerraform-12345678
 ### IAM Resources
 
 1. **IAM Role**: `CyberArkRoleSCATerraform-{account-id}`
-   - Trust relationship with CyberArk SCA service account
+   - Trust relationship with SCA service account
    - External ID validation for security
 
 2. **IAM Policy**: `CyberArkPolicyAccountForSCATerraform-{account-id}`
@@ -85,19 +85,7 @@ terraform destroy
 
 ## Next Steps
 
+- See the [complete example](../complete/) for enabling multiple services
 - Review the [main module documentation](../../README.md) for all configuration options
-- Configure SSO integration by setting `sso_enable = true` (requires `sso_region`)
-- Enable SIA service by setting `sia = { enable = true }` in your module configuration
 
-## Notes
-
-- This example does **not** enable AWS IAM Identity Center (SSO) integration
-- To enable SSO, modify the `sca` block in `main.tf`:
-  ```hcl
-  sca = {
-    enable     = true
-    sso_enable = true
-    sso_region = "us-east-1"
-  }
-  ```
 

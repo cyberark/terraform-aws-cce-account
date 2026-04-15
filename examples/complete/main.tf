@@ -32,11 +32,14 @@ module "cce_onboarding" {
   account_id           = var.account_id
   account_display_name = var.account_display_name
 
-  # Enable only SCA service
-  sca = {
+  # Enable SIA (Secure Infrastructure Access) service
+  sia = {
     enable = true
   }
 
-  # SIA service is disabled by default (enable = false)
+  # Enable SCA (Secure Cloud Access)
+  sca = {
+    enable = true
+  }
 }
 
