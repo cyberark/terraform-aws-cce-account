@@ -20,7 +20,7 @@ data "idsec_cce_aws_tenant_service_details" "get_tenant_data" {}
 
 # SIA (Secure Infrastructure Access) Module
 module "sia" {
-  source         = "./services_modules/sia"
+  source         = "./modules/sia"
   sia_account_id = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.dpa.service_account_id
   tenant_id      = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
   count          = var.sia.enable != false ? 1 : 0
@@ -28,7 +28,7 @@ module "sia" {
 
 # SCA (Secure Cloud Access) Module
 module "sca" {
-  source                 = "./services_modules/sca"
+  source                 = "./modules/sca"
   sca_service_account_id = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_account_id
   tenant_id              = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
   custom_role_name       = var.sca.role_name
