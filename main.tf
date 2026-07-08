@@ -15,8 +15,12 @@ terraform {
 
 data "aws_region" "current" {}
 
-# Fetch CyberArk CCE tenant service details
+# Fetch Idira CCE tenant service details
 data "idsec_cce_aws_tenant_service_details" "get_tenant_data" {}
+
+locals {
+  sca_service_region = var.sca.enable ? data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_region : null
+}
 
 # SIA (Secure Infrastructure Access) Module
 module "sia" {
@@ -29,7 +33,9 @@ module "sia" {
 # SCA (Secure Cloud Access) Module
 module "sca" {
   source                 = "./modules/sca"
+  sca_service_stage      = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_stage
   sca_service_account_id = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_account_id
+  sca_service_region     = local.sca_service_region
   tenant_id              = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
   custom_role_name       = var.sca.role_name
   count                  = var.sca.enable ? 1 : 0
@@ -59,4 +65,10 @@ resource "idsec_cce_aws_account" "add_account" {
   deployment_region    = data.aws_region.current.name
 
   services = local.services_list
+
+  parameters = var.sca.enable ? {
+    sca = {
+      sca_service_region = local.sca_service_region
+    }
+  } : {}
 }

@@ -29,8 +29,9 @@ This module creates the following resources in your AWS account:
 - Permissions: EC2 instance and region discovery
 
 ### For SCA (Secure Cloud Access)
-- IAM role: `CyberArkRoleSCA-{account-id}`
-- IAM policy: `CyberArkPolicyAccountForSCA-{account-id}`
+- IAM role: `SCARole-{account-id}-{tenant-id}`
+- IAM policy: `SCAPolicy-{account-id}-{tenant-id}`
+- IAM permissions policy: `SCAPermissionsPolicy-{account-id}-{tenant-id}`
 - Permissions: IAM role management, SAML provider management
 
 ## Prerequisites

@@ -28,6 +28,8 @@ variable "sca" {
     enable    = optional(bool, true)
     role_name = optional(string, null)
   })
-  default = { enable = false }
+  default = {
+    enable = false
+  }
 }
 

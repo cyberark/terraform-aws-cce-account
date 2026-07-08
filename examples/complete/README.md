@@ -69,7 +69,7 @@ account_id = "123456789012"
 account_display_name = "My Production AWS Account - Complete"
 deployment_region = "us-east-1"
 enabled_services = ["sia", "sca"]
-sca_role_arn = "arn:aws:iam::123456789012:role/CyberArkRoleSCATerraform-123456789012"
+sca_role_arn = "arn:aws:iam::123456789012:role/SCARole-123456789012-d43ac004-6cc1-4ad1-bae2-89ad57f03e3d"
 sia_role_arn = "arn:aws:iam::123456789012:role/CyberArkDynamicPrivilegedAccess-abc12345"
 ```
 
@@ -86,11 +86,11 @@ sia_role_arn = "arn:aws:iam::123456789012:role/CyberArkDynamicPrivilegedAccess-a
 
 ### SCA Resources
 
-1. **IAM role**: `CyberArkRoleSCATerraform-{account-id}`
+1. **IAM role**: `SCARole-{account-id}-{tenant-id}`
    - Trust relationship with SCA service account
    - External ID validation
 
-2. **IAM policies**: managed policies attached for SCA cross-account and IAM account permissions
+2. **IAM policies**: `SCAPolicy-{account-id}-{tenant-id}` and `SCAPermissionsPolicy-{account-id}-{tenant-id}`
 
 ## Configuration Options
 

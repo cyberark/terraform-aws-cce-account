@@ -59,21 +59,24 @@ Outputs:
 account_id = "123456789012"
 deployment_region = "us-east-1"
 enabled_services = ["sca"]
-sca_role_arn = "arn:aws:iam::123456789012:role/CyberArkRoleSCATerraform-123456789012"
+sca_role_arn = "arn:aws:iam::123456789012:role/SCARole-123456789012-d43ac004-6cc1-4ad1-bae2-89ad57f03e3d"
 ```
 
 ## What Gets Created in AWS
 
 ### IAM Resources
 
-1. **IAM Role**: `CyberArkRoleSCATerraform-{account-id}`
+1. **IAM Role**: `SCARole-{account-id}-{tenant-id}`
    - Trust relationship with SCA service account
    - External ID validation for security
 
-2. **IAM Policy**: `CyberArkPolicyAccountForSCATerraform-{account-id}`
+2. **IAM Policy**: `SCAPolicy-{account-id}-{tenant-id}`
    - Permissions for IAM role management
    - SAML provider management
    - Role assumption capabilities
+
+3. **IAM Permissions Policy**: `SCAPermissionsPolicy-{account-id}-{tenant-id}`
+   - IAM account permissions for SCA operations
 
 ## Cleanup
 
