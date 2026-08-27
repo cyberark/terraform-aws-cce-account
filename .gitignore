@@ -33,6 +33,15 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Python / test artifacts
+.venv/
+# Isolated working dirs created by the apply/destroy test tier
+tests/fixtures/apply_*/
+__pycache__/
+*.pyc
+.pytest_cache/
+test-results.xml
+
 # Ignore Mac/OSX system files
 .DS_Store
 

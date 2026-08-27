@@ -62,7 +62,7 @@ resource "idsec_cce_aws_account" "add_account" {
   count                = var.sca.enable || var.sia.enable ? 1 : 0
   account_id           = var.account_id
   account_display_name = var.account_display_name
-  deployment_region    = data.aws_region.current.name
+  deployment_region    = data.aws_region.current.region
 
   services = local.services_list
 
