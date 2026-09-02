@@ -8,7 +8,7 @@ terraform {
     }
     idsec = {
       source  = "cyberark/idsec"
-      version = "~> 0.2.1"
+      version = "0.10.0"
     }
   }
 }
@@ -45,11 +45,15 @@ locals {
   services_list = flatten([
     var.sia.enable ? [{
       service_name = "dpa"
-      resources    = { DpaRoleArn = module.sia[0].deployed_resources.main }
+      version      = "0.0.2"
+      resources = {
+        DpaRoleArn = module.sia[0].deployed_resources.main
+      }
     }] : [],
 
     var.sca.enable ? [{
       service_name = "sca"
+      version      = "0.0.4"
       resources = {
         scaPowerRoleArn = module.sca[0].deployed_resources.main
       }
