@@ -32,13 +32,14 @@ module "sia" {
 
 # SCA (Secure Cloud Access) Module
 module "sca" {
-  source                 = "./modules/sca"
-  sca_service_stage      = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_stage
-  sca_service_account_id = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_account_id
-  sca_service_region     = local.sca_service_region
-  tenant_id              = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
-  custom_role_name       = var.sca.role_name
-  count                  = var.sca.enable ? 1 : 0
+  source                            = "./modules/sca"
+  sca_service_stage                 = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_stage
+  sca_service_account_id            = data.idsec_cce_aws_tenant_service_details.get_tenant_data.services_details.sca.service_account_id
+  sca_service_region                = local.sca_service_region
+  tenant_id                         = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
+  custom_role_name                  = var.sca.role_name
+  add_permissions_to_manage_cluster = var.sca.add_permissions_to_manage_cluster
+  count                             = var.sca.enable ? 1 : 0
 }
 
 locals {
@@ -53,10 +54,15 @@ locals {
 
     var.sca.enable ? [{
       service_name = "sca"
-      version      = "0.0.4"
-      resources = {
-        scaPowerRoleArn = module.sca[0].deployed_resources.main
-      }
+      version      = "0.0.6"
+      resources = merge(
+        {
+          scaPowerRoleArn = module.sca[0].deployed_resources.main
+        },
+        var.sca.add_permissions_to_manage_cluster ? {
+          addPermissionsToManageCluster = var.sca.add_permissions_to_manage_cluster
+        } : {}
+      )
     }] : []
   ])
 }

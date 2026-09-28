@@ -23,10 +23,11 @@ variable "sia" {
 }
 
 variable "sca" {
-  description = "Configuration for the SCA (Secure Cloud Access) feature."
+  description = "Configuration for the SCA (Secure Cloud Access) feature. add_permissions_to_manage_cluster attaches optional EKS cluster management permissions to the cross-account role."
   type = object({
-    enable    = optional(bool, true)
-    role_name = optional(string, null)
+    enable                            = optional(bool, true)
+    role_name                         = optional(string, null)
+    add_permissions_to_manage_cluster = optional(bool, false)
   })
   default = {
     enable = false

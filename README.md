@@ -135,6 +135,12 @@ SCA enables secure cloud entitlements management. Configuration options:
 sca = {
   enable     = true
 }
+
+# Optional: EKS cluster management permissions on the SCA cross-account role
+sca = {
+  enable                            = true
+  add_permissions_to_manage_cluster = true
+}
 ```
 
 ## Inputs
@@ -144,7 +150,7 @@ sca = {
 | account_id | The AWS account ID that you want to onboard. Must be a valid 12-digit AWS account ID. | `string` | n/a | yes |
 | account_display_name | The display name for the AWS account | `string` | `"AWS Account"` | no |
 | sia | Configuration for SIA (Secure Infrastructure Access). Note: Uses DPA internally for backward compatibility. | `object({ enable = optional(bool, true) })` | `null` | no |
-| sca | Configuration for SCA (Secure Cloud Access).
+| sca | Configuration for SCA (Secure Cloud Access). `add_permissions_to_manage_cluster` (default `false`) attaches optional EKS cluster management permissions. | `object({ enable = optional(bool, true), role_name = optional(string), add_permissions_to_manage_cluster = optional(bool, false) })` | `{ enable = false }` | no |
 
 ## Outputs
 

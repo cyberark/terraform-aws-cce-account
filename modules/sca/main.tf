@@ -31,6 +31,11 @@ locals {
     ? "${var.custom_role_name}${local.account_id}ForSCAIAMPolicy"
     : "SCAPermissionsPolicy-${local.account_id}-${var.tenant_id}"
   )
+  sca_eks_cluster_permissions_policy_name = (
+    var.custom_role_name != null && var.custom_role_name != ""
+    ? "${var.custom_role_name}${local.account_id}ForSCAEKSClusterPermissions"
+    : "EKSClusterPermissionsForSCA-${local.account_id}-${var.tenant_id}"
+  )
 }
 
 ########
@@ -53,7 +58,6 @@ data "aws_iam_policy_document" "sca_cross_account_assume_role_policy" {
     }
   }
 }
-
 
 data "aws_iam_policy_document" "sca_cross_account_policy_document" {
   statement {
@@ -92,6 +96,22 @@ data "aws_iam_policy_document" "sca_account_permissions_policy_document" {
   }
 }
 
+data "aws_iam_policy_document" "sca_eks_cluster_permissions_policy_document" {
+  statement {
+    sid    = "scaeksclusteraccess"
+    effect = "Allow"
+    actions = [
+      "eks:ListClusters",
+      "eks:DescribeCluster",
+      "eks:ListAccessEntries",
+      "eks:CreateAccessEntry",
+      "eks:AssociateAccessPolicy",
+      "eks:ListAssociatedAccessPolicies"
+    ]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_role" "sca_cross_account_assume_role" {
   name               = local.sca_cross_account_iam_role_name
   assume_role_policy = data.aws_iam_policy_document.sca_cross_account_assume_role_policy.json
@@ -120,4 +140,17 @@ resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_po
 resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_account_permissions_policy" {
   role       = aws_iam_role.sca_cross_account_assume_role.name
   policy_arn = aws_iam_policy.sca_account_permissions_policy.arn
+}
+
+resource "aws_iam_policy" "sca_eks_cluster_permissions_policy" {
+  count       = var.add_permissions_to_manage_cluster ? 1 : 0
+  name        = local.sca_eks_cluster_permissions_policy_name
+  description = "SCA EKS cluster management permissions"
+  policy      = data.aws_iam_policy_document.sca_eks_cluster_permissions_policy_document.json
+}
+
+resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_eks_cluster_policy" {
+  count      = var.add_permissions_to_manage_cluster ? 1 : 0
+  role       = aws_iam_role.sca_cross_account_assume_role.name
+  policy_arn = aws_iam_policy.sca_eks_cluster_permissions_policy[count.index].arn
 }

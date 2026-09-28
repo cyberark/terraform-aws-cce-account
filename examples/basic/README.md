@@ -78,6 +78,8 @@ sca_role_arn = "arn:aws:iam::123456789012:role/SCARole-123456789012-d43ac004-6cc
 3. **IAM Permissions Policy**: `SCAPermissionsPolicy-{account-id}-{tenant-id}`
    - IAM account permissions for SCA operations
 
+4. **Optional EKS policy** (when `add_permissions_to_manage_cluster = true`): EKS cluster list/describe and access entry management
+
 ## Cleanup
 
 To remove all resources created by this example:
