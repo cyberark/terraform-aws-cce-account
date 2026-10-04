@@ -1,5 +1,5 @@
 variable "account_id" {
-  description = "The AWS account ID to onboard to CyberArk CCE"
+  description = "The AWS account ID."
   type        = string
 
   validation {
@@ -9,13 +9,13 @@ variable "account_id" {
 }
 
 variable "account_display_name" {
-  description = "The display name for the AWS account in CyberArk CCE"
+  description = "The display name of the AWS account in Connect cloud environments."
   type        = string
   default     = "AWS Account"
 }
 
 variable "sia" {
-  description = "Configuration for the SIA (Secure Infrastructure Access) feature. Note: Uses DPA service internally for backward compatibility."
+  description = "The configuration for SIA (Secure Infrastructure Access). Note: Uses DPA internally for backward compatibility."
   type = object({
     enable = optional(bool, true)
   })
@@ -23,7 +23,7 @@ variable "sia" {
 }
 
 variable "sca" {
-  description = "Configuration for the SCA (Secure Cloud Access) feature. add_permissions_to_manage_cluster attaches optional EKS cluster management permissions to the cross-account role."
+  description = "The configuration for SCA (Secure Cloud Access). add_permissions_to_manage_cluster attaches optional EKS cluster management permissions to the cross-account role."
   type = object({
     enable                            = optional(bool, true)
     role_name                         = optional(string, null)

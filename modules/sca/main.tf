@@ -122,13 +122,13 @@ resource "aws_iam_role" "sca_cross_account_assume_role" {
 
 resource "aws_iam_policy" "sca_cross_account_policy" {
   name        = local.sca_cross_account_managed_policy_name
-  description = "The policy contains sca cross account permissions"
+  description = "The policy contains SCA cross-account permissions."
   policy      = data.aws_iam_policy_document.sca_cross_account_policy_document.json
 }
 
 resource "aws_iam_policy" "sca_account_permissions_policy" {
   name        = local.sca_account_permissions_managed_policy_name
-  description = "The policy contains sca IAM account permissions"
+  description = "The policy contains SCA IAM account permissions."
   policy      = data.aws_iam_policy_document.sca_account_permissions_policy_document.json
 }
 
@@ -145,7 +145,7 @@ resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_ac
 resource "aws_iam_policy" "sca_eks_cluster_permissions_policy" {
   count       = var.add_permissions_to_manage_cluster ? 1 : 0
   name        = local.sca_eks_cluster_permissions_policy_name
-  description = "SCA EKS cluster management permissions"
+  description = "SCA EKS cluster management permissions."
   policy      = data.aws_iam_policy_document.sca_eks_cluster_permissions_policy_document.json
 }
 

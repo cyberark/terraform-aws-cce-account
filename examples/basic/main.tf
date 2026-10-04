@@ -18,8 +18,8 @@ provider "aws" {
 }
 
 provider "idsec" {
-  # Configure with your CyberArk CCE tenant credentials
-  # You can set these via environment variables:
+  # Configure using your CCE tenant credentials
+  # Set these environment variables:
   # - IDSEC_TENANT_URL
   # - IDSEC_CLIENT_ID
   # - IDSEC_CLIENT_SECRET

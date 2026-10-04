@@ -1,14 +1,14 @@
 output "sia_role_arn" {
-  description = "The ARN of the IAM role created for SIA service"
+  description = "The IAM role ARN created for SIA."
   value       = module.cce_onboarding.sia_role_arn
 }
 
 output "sca_role_arn" {
-  description = "The ARN of the IAM role created for SCA service"
+  description = "The IAM role ARN created for SCA."
   value       = module.cce_onboarding.sca_role_arn
 }
 
 output "account_onboarding_id" {
-  description = "The ID of the account onboarding resource"
+  description = "The account onboarding resource ID."
   value       = module.cce_onboarding.account_onboarding_id
 }

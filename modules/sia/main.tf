@@ -41,7 +41,7 @@ resource "aws_iam_role" "dpa_role" {
 
 resource "aws_iam_policy" "dpa_policy" {
   name        = "CyberarkJitAccountProvisioningPolicy-${split("-", var.tenant_id)[0]}-${split("-", random_uuid.suffix.result)[0]}"
-  description = "Allows EC2 instance and region scan"
+  description = "Allows EC2 instance and region scan."
 
   policy = jsonencode({
     Version = "2012-10-17"

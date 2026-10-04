@@ -1,5 +1,5 @@
 output "deployed_resources" {
-  description = "Map of deployed SCA resources including the main IAM role ARN"
+  description = "A map of deployed SCA resources including the main IAM role ARN."
   value = {
     main                          = aws_iam_role.sca_cross_account_assume_role.arn
     addPermissionsToManageCluster = var.add_permissions_to_manage_cluster
@@ -7,7 +7,7 @@ output "deployed_resources" {
 }
 
 output "module_ready" {
-  description = "List of all SCA module resource identifiers indicating the module is ready"
+  description = "A list of all SCA module resource identifiers that indicates the module is ready."
   value = compact([
     aws_iam_role.sca_cross_account_assume_role.arn,
     aws_iam_policy.sca_cross_account_policy.arn,

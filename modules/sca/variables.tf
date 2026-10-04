@@ -1,10 +1,10 @@
 variable "sca_service_stage" {
-  description = "The SCA Service stage to deploy the resources"
+  description = "The SCA service stage to deploy the resources."
   type        = string
 }
 
 variable "sca_service_region" {
-  description = "The SCA Service region to deploy the resources"
+  description = "The SCA Service region to deploy the resources."
   type        = string
 
   validation {
@@ -14,17 +14,17 @@ variable "sca_service_region" {
 }
 
 variable "sca_service_account_id" {
-  description = "The AWS account number for SCA account"
+  description = "The AWS account number of the SCA account."
   type        = string
 }
 
 variable "tenant_id" {
-  description = "The tenant id of deployer"
+  description = "The tenant ID from where the resources are deployed."
   type        = string
 }
 
 variable "custom_role_name" {
-  description = "Optional IAM role name for SCA cross-account access. When null or empty, SCARole-{account_id}-{tenant_id} is used."
+  description = "An optional IAM role name for SCA cross-account access. When null or empty, SCARole-{account_id}-{tenant_id} is used."
   type        = string
   default     = null
   nullable    = true
