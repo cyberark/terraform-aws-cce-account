@@ -1,7 +1,7 @@
 # CCE AWS Account Onboarding Module
 
-This Terraform module onboards AWS member accounts to Connect Cloud Environments (CCE) with CyberArk SaaS services.
-CCE helps customers easily adopt CyberArk services and establish secure trust relationships with their AWS environments.
+This Terraform module onboards AWS member accounts to Connect Cloud Environments (CCE) with Idira SaaS services.
+CCE helps customers easily adopt Idira services and establish secure trust relationships with their AWS environments.
 
 ## Overview
 
@@ -50,7 +50,7 @@ Before using this module, ensure that you have the following information and req
 3. **Terraform Requirements**
    - Terraform >= 1.8.5
    - AWS Provider ~> 5.0
-   - CyberArk idsec Provider ~> 1.0
+   - Idira idsec Provider ~> 1.0
 
 ## Usage
 
@@ -75,7 +75,7 @@ provider "aws" {
 }
 
 provider "idsec" {
-  # Configure with your CyberArk tenant credentials
+  # Configure with your Idira tenant credentials
   # See: https://registry.terraform.io/providers/cyberark/idsec/latest/docs
 }
 

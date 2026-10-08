@@ -67,7 +67,7 @@ locals {
   ])
 }
 
-# Register AWS account with CyberArk CCE
+# Register AWS account with CCE
 resource "idsec_cce_aws_account" "add_account" {
   count                = var.sca.enable || var.sia.enable ? 1 : 0
   account_id           = var.account_id

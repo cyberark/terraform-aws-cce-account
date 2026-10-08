@@ -21,13 +21,13 @@ This example demonstrates how to onboard an AWS account to CCE with **all servic
 
 1. **Terraform** >= 1.8.5
 2. **AWS credentials** configured with permissions to create IAM resources
-3. **CyberArk tenant credentials** for the idsec provider
+3. **Idira tenant credentials** for the idsec provider
 
 ## Usage
 
-### Step 1: Configure CyberArk Provider
+### Step 1: Configure Idira Provider
 
-Set the following environment variables with your CyberArk tenant credentials:
+Set the following environment variables with your Idira tenant credentials:
 
 ```bash
 export IDSEC_TENANT_URL="https://your-tenant.cyberark.cloud"

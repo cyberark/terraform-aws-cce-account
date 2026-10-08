@@ -9,7 +9,7 @@ variable "account_id" {
 }
 
 variable "account_display_name" {
-  description = "The display name of the AWS account in Connect cloud environments."
+  description = "The AWS account display name in CCE."
   type        = string
   default     = "AWS Account"
 }
