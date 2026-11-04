@@ -55,14 +55,10 @@ locals {
     var.sca.enable ? [{
       service_name = "sca"
       version      = "0.0.6"
-      resources = merge(
-        {
-          scaPowerRoleArn = module.sca[0].deployed_resources.main
-        },
-        var.sca.add_permissions_to_manage_cluster ? {
-          addPermissionsToManageCluster = var.sca.add_permissions_to_manage_cluster
-        } : {}
-      )
+      resources = {
+        scaPowerRoleArn               = module.sca[0].deployed_resources.main
+        addPermissionsToManageCluster = var.sca.add_permissions_to_manage_cluster
+      }
     }] : []
   ])
 }
