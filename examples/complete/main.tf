@@ -40,6 +40,10 @@ module "cce_onboarding" {
   # Enable SCA (Secure Cloud Access)
   sca = {
     enable = true
+
+    # Optionally grant the SCA cross-account role IAM OIDC-provider permissions
+    # for the AWS CLI credentials extension flow (extended CLI sessions).
+    # enable_extended_cli_sessions = true
   }
 }
 

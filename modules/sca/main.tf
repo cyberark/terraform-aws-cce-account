@@ -36,6 +36,11 @@ locals {
     ? "${var.custom_role_name}${local.account_id}ForSCAEKSClusterPermissions"
     : "EKSClusterPermissionsForSCA-${local.account_id}-${var.tenant_id}"
   )
+  sca_aws_cli_extension_permissions_policy_name = (
+    var.custom_role_name != null && var.custom_role_name != ""
+    ? "${var.custom_role_name}${local.account_id}ForSCAAwsCliExtension"
+    : "AwsCliExtensionForSCA-${local.account_id}-${var.tenant_id}"
+  )
 }
 
 ########
@@ -112,6 +117,19 @@ data "aws_iam_policy_document" "sca_eks_cluster_permissions_policy_document" {
   }
 }
 
+data "aws_iam_policy_document" "sca_aws_cli_extension_permissions_policy_document" {
+  statement {
+    sid    = "scaawscliextensionoidc"
+    effect = "Allow"
+    actions = [
+      "iam:CreateOpenIDConnectProvider",
+      "iam:GetOpenIDConnectProvider",
+      "iam:DeleteOpenIDConnectProvider",
+    ]
+    resources = ["*"]
+  }
+}
+
 resource "aws_iam_role" "sca_cross_account_assume_role" {
   name               = local.sca_cross_account_iam_role_name
   assume_role_policy = data.aws_iam_policy_document.sca_cross_account_assume_role_policy.json
@@ -153,4 +171,17 @@ resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_ek
   count      = var.add_permissions_to_manage_cluster ? 1 : 0
   role       = aws_iam_role.sca_cross_account_assume_role.name
   policy_arn = aws_iam_policy.sca_eks_cluster_permissions_policy[count.index].arn
+}
+
+resource "aws_iam_policy" "sca_aws_cli_extension_permissions_policy" {
+  count       = var.enable_extended_cli_sessions ? 1 : 0
+  name        = local.sca_aws_cli_extension_permissions_policy_name
+  description = "SCA AWS CLI credentials extension (OIDC) permissions"
+  policy      = data.aws_iam_policy_document.sca_aws_cli_extension_permissions_policy_document.json
+}
+
+resource "aws_iam_role_policy_attachment" "sca_cross_account_role_attached_to_aws_cli_extension_policy" {
+  count      = var.enable_extended_cli_sessions ? 1 : 0
+  role       = aws_iam_role.sca_cross_account_assume_role.name
+  policy_arn = aws_iam_policy.sca_aws_cli_extension_permissions_policy[count.index].arn
 }

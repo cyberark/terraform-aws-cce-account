@@ -80,6 +80,8 @@ sca_role_arn = "arn:aws:iam::123456789012:role/SCARole-123456789012-d43ac004-6cc
 
 4. **Optional EKS policy** (when `add_permissions_to_manage_cluster = true`): EKS cluster list/describe and access entry management
 
+5. **Optional AWS CLI extension policy** (when `enable_extended_cli_sessions = true`): IAM OIDC provider create/get/delete for the AWS CLI credentials extension flow
+
 ## Cleanup
 
 To remove all resources created by this example:

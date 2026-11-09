@@ -35,6 +35,10 @@ module "cce_onboarding" {
   # Enable only SCA service
   sca = {
     enable = true
+
+    # Optionally enable extended CLI sessions (OIDC) for the AWS CLI
+    # credentials extension flow.
+    # enable_extended_cli_sessions = true
   }
 
   # SIA service is disabled by default (enable = false)

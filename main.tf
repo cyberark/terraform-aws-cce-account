@@ -39,6 +39,7 @@ module "sca" {
   tenant_id                         = data.idsec_cce_aws_tenant_service_details.get_tenant_data.tenant_id
   custom_role_name                  = var.sca.role_name
   add_permissions_to_manage_cluster = var.sca.add_permissions_to_manage_cluster
+  enable_extended_cli_sessions      = var.sca.enable_extended_cli_sessions
   count                             = var.sca.enable ? 1 : 0
 }
 
@@ -54,10 +55,11 @@ locals {
 
     var.sca.enable ? [{
       service_name = "sca"
-      version      = "0.0.6"
+      version      = "0.0.7"
       resources = {
         scaPowerRoleArn               = module.sca[0].deployed_resources.main
         addPermissionsToManageCluster = var.sca.add_permissions_to_manage_cluster
+        enableExtendedCliSessions     = var.sca.enable_extended_cli_sessions
       }
     }] : []
   ])

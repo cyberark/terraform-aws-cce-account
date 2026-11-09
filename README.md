@@ -141,6 +141,12 @@ sca = {
   enable                            = true
   add_permissions_to_manage_cluster = true
 }
+
+# Optional: extended CLI sessions (OIDC) for the AWS CLI credentials extension flow
+sca = {
+  enable                       = true
+  enable_extended_cli_sessions = true
+}
 ```
 
 ## Inputs
@@ -150,7 +156,7 @@ sca = {
 | account_id | The AWS account ID that you want to onboard. Must be a valid 12-digit AWS account ID. | `string` | n/a | yes |
 | account_display_name | The display name for the AWS account | `string` | `"AWS Account"` | no |
 | sia | Configuration for SIA (Secure Infrastructure Access). Note: Uses DPA internally for backward compatibility. | `object({ enable = optional(bool, true) })` | `null` | no |
-| sca | Configuration for SCA (Secure Cloud Access). `add_permissions_to_manage_cluster` (default `false`) attaches optional EKS cluster management permissions. | `object({ enable = optional(bool, true), role_name = optional(string), add_permissions_to_manage_cluster = optional(bool, false) })` | `{ enable = false }` | no |
+| sca | Configuration for SCA (Secure Cloud Access). `add_permissions_to_manage_cluster` (default `false`) attaches optional EKS cluster management permissions. `enable_extended_cli_sessions` (default `false`) attaches optional IAM OIDC-provider permissions for the AWS CLI credentials extension flow. | `object({ enable = optional(bool, true), role_name = optional(string), add_permissions_to_manage_cluster = optional(bool, false), enable_extended_cli_sessions = optional(bool, false) })` | `{ enable = false }` | no |
 
 ## Outputs
 

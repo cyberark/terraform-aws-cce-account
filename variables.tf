@@ -23,11 +23,12 @@ variable "sia" {
 }
 
 variable "sca" {
-  description = "The configuration for SCA (Secure Cloud Access). add_permissions_to_manage_cluster attaches optional EKS cluster management permissions to the cross-account role."
+  description = "Configuration for the SCA (Secure Cloud Access) feature. add_permissions_to_manage_cluster attaches optional EKS cluster management permissions to the cross-account role. enable_extended_cli_sessions attaches optional IAM OIDC-provider permissions for the AWS CLI session extension flow."
   type = object({
     enable                            = optional(bool, true)
     role_name                         = optional(string, null)
     add_permissions_to_manage_cluster = optional(bool, false)
+    enable_extended_cli_sessions      = optional(bool, false)
   })
   default = {
     enable = false
